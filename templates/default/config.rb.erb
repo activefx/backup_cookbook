@@ -14,27 +14,28 @@
 #
 
 <% @backup_tasks.each do |task| %>
-  Backup::Model.new(<%= task[:id].to_sym %>, <%= task[:title] || "#{task[:id]} backup configuration" %>) do
-    <% ['database', 'archive', 'encrypt_with', 'compress_with', 'store_with', 'sync_with', 'notify_by'].each do |backup_module| %>
-      <% if task[backup_module] && !task[backup_module].empty? %>
-        <% task[backup_module].each do |backup_module_task_name, values| %>
+Backup::Model.new(<%= task[:id].to_sym %>, '<%= task[:title] || "#{task[:id]} backup configuration" %>') do
+<% ['database', 'archive', 'encrypt_with', 'compress_with', 'store_with', 'sync_with', 'notify_by'].each do |backup_module| %>
+<% if task[backup_module] && !task[backup_module].empty? %>
+<% task[backup_module].each do |backup_module_task_name, values| %>
 
-          <%= backup_module %> <%= backup_module_task_name %> do |x|
-            <% sync_directories = values.delete('directories') %>
-            <% values.each do |key, value| %>
-              x.<%= key %> = <%= value %>
-            <% end %>
-            <% unless sync_directories.nil? %>
-              x.directories do |directory|
-                <% sync_directories.each do |key, value| %>
-                  directory.<%= key %> = <%= value %>
-                <% end %>
-            <% end %>
-          end
-
-        <% end %>
+  <%= backup_module %> <%= backup_module_task_name %> do |x|
+  <% sync_directories = values.delete('directories') %>
+  <% values.each do |key, value| %>
+    x.<%= key %> = <%= value %>
+  <% end %>
+  <% unless sync_directories.nil? %>
+    x.directories do |directory|
+      <% sync_directories.each do |key, value| %>
+      directory.<%= key %> = <%= value %>
       <% end %>
-    <% end %>
+    end
+  <% end %>
   end
+<% end %>
+<% end %>
+<% end %>
+
+end
 <% end %>
 
