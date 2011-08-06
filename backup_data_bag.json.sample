@@ -1,0 +1,17 @@
+{
+  "id": "backup_name",
+  "title": "Backup Name",
+  "database": {
+    "MySQL": {},
+    "PostgreSQL": {},
+    "MongoDB": {},
+    "Redis": {}
+  },
+  "archive": {},
+  "encrypt_with": {},
+  "compress_with": {},
+  "store_with": {},
+  "sync_with": {},
+  "notify_by": {}
+}
+
