@@ -14,7 +14,7 @@
 #
 
 <% @backup_tasks.each do |task| %>
-Backup::Model.new(<%= task[:id].to_sym %>, '<%= task[:title] || "#{task[:id]} backup configuration" %>') do
+Backup::Model.new(:<%= task[:id] %>, '<%= task[:title] || "#{task[:id]} backup configuration" %>') do
 <% ['database', 'archive', 'encrypt_with', 'compress_with', 'store_with', 'sync_with', 'notify_by'].each do |backup_module| %>
 <% if task[backup_module] && !task[backup_module].empty? %>
 <% task[backup_module].each do |backup_module_task_name, values| %>
